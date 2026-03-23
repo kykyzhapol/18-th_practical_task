@@ -103,3 +103,32 @@ class Game:
             return self.team_2
         return 'Ничья'
 
+
+class Point:
+    def __init__(self, place = (0,0)):
+        self.x = place[0]
+        self.y = place[1]
+
+
+    def __str__(self):
+        return str((self.x, self.y))
+
+
+    def get_x(self):
+        return self.x
+
+
+    def get_y(self):
+        return self.y
+
+
+    def distance(self, other):
+        '''Вычисляет расстояние между текущей точкой и другой точкой.'''
+        dx = self.x - other.x
+        dy = self.y - other.y
+        return (dx ** 2 + dy ** 2) ** 0.5  # возведение в степень 0.5 = квадратный корень
+
+
+    def sum(self, other):
+        '''Возвращает новую точку с координатами, равными сумме координат.'''
+        return Point((self.x + other.x, self.y + other.y))
