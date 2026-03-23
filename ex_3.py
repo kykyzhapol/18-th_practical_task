@@ -1,0 +1,18 @@
+from solution import NotSleeping
+
+human = NotSleeping('Мистер Смит')
+human.add_sheep()
+human.add_sheep()
+human.add_sheep()
+human.add_sheep()
+human.add_sheep()
+print(human.name, 'насчитал', human.count_sheeps, 'овец')
+human.add_sheep()
+human.lost()
+human.add_sheep()
+human.add_sheep()
+human.add_sheep()
+human.add_sheep()
+human.add_sheep()
+human.add_sheep()
+print(human.name, 'насчитал', human.count_sheeps, 'овец')
