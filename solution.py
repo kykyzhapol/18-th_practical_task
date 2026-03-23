@@ -51,19 +51,29 @@ class User:
 
     def update(self, id=None, nick_name=None, first_name=None, last_name=None,
                middle_name=None, gender=None):
-        if id is not None:
+        if id is not (None or ''):
             self.id = id
-        if nick_name is not None:
+        if nick_name is not (None or ''):
             self.nick_name = nick_name
-        if first_name is not None:
+        if first_name is not (None or ''):
             self.first_name = first_name
-        if last_name is not None:
+        if last_name is not (None or ''):
             self.last_name = last_name
-        if middle_name is not None:
+        if middle_name is not (None or ''):
             self.middle_name = middle_name
-        if gender is not None:
+        if gender is not (None or ''):
             self.gender = gender
 
     def __str__(self):
-        return f'ID: {self.id} LOGIN: {self.nick_name} NAME: {self.first_name} {self.middle_name} {self.last_name}'
+        ret_str = f'ID: {self.id} LOGIN: {self.nick_name} NAME: {self.first_name} '
+        if self.middle_name:
+            ret_str += f'{self.middle_name} '
+        if self.last_name:
+            ret_str += f'{self.last_name} '
+        if self.gender:
+            ret_str += f'GENDER: {self.gender}'
+        return ret_str
+
+    def __repr__(self):
+        return self.nick_name
 
