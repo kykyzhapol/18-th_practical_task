@@ -77,3 +77,29 @@ class User:
     def __repr__(self):
         return self.nick_name
 
+
+class Game:
+    def __init__(self, team_dict):
+        self.team_1 = team_dict['command1']
+        self.team_2 = team_dict['command2']
+        self.score_1 = 0
+        self.score_2 = 0
+
+
+    def ball_thrown(self, command, points):
+        if command == 1:
+            self.score_1 += points
+        if command == 2:
+            self.score_2 += points
+
+
+    def get_score(self):
+        return (self.score_1, self.score_2)
+
+    def get_winner(self):
+        if self.score_1 > self.score_2:
+            return self.team_1
+        if self.score_2 > self.score_1:
+            return self.team_2
+        return 'Ничья'
+
