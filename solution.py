@@ -132,3 +132,19 @@ class Point:
     def sum(self, other):
         '''Возвращает новую точку с координатами, равными сумме координат.'''
         return Point((self.x + other.x, self.y + other.y))
+
+
+class TrafficLight:
+    permissible_values = ['зеленый', 'желтый', 'красный', 'желтый']  # атрибут класса
+
+    def __init__(self):
+        self.sig_is = 0  # индекс текущего сигнала (начинаем с зеленого)
+
+    def next_signal(self):
+        '''Переключает светофор на следующий сигнал'''
+        self.sig_is = (self.sig_is + 1) % len(self.permissible_values)
+
+    @property
+    def current_signal(self):
+        '''Возвращает текущий сигнал светофора'''
+        return self.permissible_values[self.sig_is]
