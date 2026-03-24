@@ -14,13 +14,11 @@ class NotSleeping:
         self.name = name
         self.sheep = sheep
 
-
     def add_sheep(self):
         self.sheep += 1
 
     def lost(self):
         self.sheep = 0
-
 
     @property
     def count_sheeps(self):
@@ -85,13 +83,11 @@ class Game:
         self.score_1 = 0
         self.score_2 = 0
 
-
     def ball_thrown(self, command, points):
         if command == 1:
             self.score_1 += points
         if command == 2:
             self.score_2 += points
-
 
     def get_score(self):
         return (self.score_1, self.score_2)
@@ -105,29 +101,24 @@ class Game:
 
 
 class Point:
-    def __init__(self, place = (0,0)):
+    def __init__(self, place=(0, 0)):
         self.x = place[0]
         self.y = place[1]
-
 
     def __str__(self):
         return str((self.x, self.y))
 
-
     def get_x(self):
         return self.x
 
-
     def get_y(self):
         return self.y
-
 
     def distance(self, other):
         '''Вычисляет расстояние между текущей точкой и другой точкой.'''
         dx = self.x - other.x
         dy = self.y - other.y
         return (dx ** 2 + dy ** 2) ** 0.5  # возведение в степень 0.5 = квадратный корень
-
 
     def sum(self, other):
         '''Возвращает новую точку с координатами, равными сумме координат.'''
@@ -148,3 +139,126 @@ class TrafficLight:
     def current_signal(self):
         '''Возвращает текущий сигнал светофора'''
         return self.permissible_values[self.sig_is]
+
+
+class MorseMsg:
+    # Словарь для декодирования в латиницу
+    MORSE_TO_ENG = {
+        '.-': 'A', '-...': 'B', '-.-.': 'C', '-..': 'D', '.': 'E',
+        '..-.': 'F', '--.': 'G', '....': 'H', '..': 'I', '.---': 'J',
+        '-.-': 'K', '.-..': 'L', '--': 'M', '-.': 'N', '---': 'O',
+        '.--.': 'P', '--.-': 'Q', '.-.': 'R', '...': 'S', '-': 'T',
+        '..-': 'U', '...-': 'V', '.--': 'W', '-..-': 'X', '-.--': 'Y',
+        '--..': 'Z',
+        '-----': '0', '.----': '1', '..---': '2', '...--': '3', '....-': '4',
+        '.....': '5', '-....': '6', '--...': '7', '---..': '8', '----.': '9'
+    }
+
+    # Словарь для декодирования в кириллицу
+    MORSE_TO_RU = {
+        '.-': 'А', '-...': 'Б', '.--': 'В', '--.': 'Г', '-..': 'Д',
+        '.': 'Е', '...-': 'Ж', '--..': 'З', '..': 'И', '.---': 'Й',
+        '-.-': 'К', '.-..': 'Л', '--': 'М', '-.': 'Н', '---': 'О',
+        '.--.': 'П', '.-.': 'Р', '...': 'С', '-': 'Т', '..-': 'У',
+        '..-.': 'Ф', '....': 'Х', '-.-.': 'Ц', '---.': 'Ч', '----': 'Ш',
+        '--.-': 'Щ', '--.--': 'Ъ', '-.--': 'Ы', '-..-': 'Ь', '...-...': 'Э',
+        '..--': 'Ю', '.-.-': 'Я',
+        '-----': '0', '.----': '1', '..---': '2', '...--': '3', '....-': '4',
+        '.....': '5', '-....': '6', '--...': '7', '---..': '8', '----.': '9'
+    }
+
+    ENG_VOWELS_LIST = ['A', 'E', 'I', 'O', 'U', 'Y']
+    ENG_CONSONANTS_LIST = ['B', 'C', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'M',
+                           'N', 'P', 'Q', 'R', 'S', 'T', 'V', 'W', 'X', 'Z']
+    RUS_VOWELS_LIST = ['А', 'Е', 'Ё', 'И', 'О', 'У', 'Ы', 'Э', 'Ю', 'Я']
+    RUS_CONSONANTS_LIST = ['Б', 'В', 'Г', 'Д', 'Ж', 'З', 'Й', 'К', 'Л', 'М',
+                           'Н', 'П', 'Р', 'С', 'Т', 'Ф', 'Х', 'Ц', 'Ч', 'Ш', 'Щ']
+
+    def __init__(self, encoded_msg):
+        '''
+        Инициализация экземпляра класса закодированным сообщением.
+        Буквы разделяются пробелом.
+        '''
+        self.encoded_msg = encoded_msg
+
+    def eng_decode(self):
+        '''
+        Декодирует сообщение в латинские буквы.
+        Возвращает строку с декодированным сообщением.
+        '''
+        words = self.encoded_msg.split(' ')  # Слова разделены пробелами
+        decoded_words = ''
+
+        for word in words:
+            letters = word.split(' ')  # Буквы разделены одним пробелом
+            decoded_word = ''
+            for letter in letters:
+                if letter in self.MORSE_TO_ENG:
+                    decoded_word += self.MORSE_TO_ENG[letter]
+            decoded_words += decoded_word
+
+        return decoded_words
+
+    def ru_decode(self):
+        '''
+        Декодирует сообщение в кириллицу.
+        Возвращает строку с декодированным сообщением.
+        '''
+        words = self.encoded_msg.split(' ')  # Слова разделены пробелами
+        decoded_words = ''
+
+        for word in words:
+            letters = word.split(' ')  # Буквы разделены одним пробелом
+            decoded_word = ''
+            for letter in letters:
+                if letter in self.MORSE_TO_RU:
+                    decoded_word += self.MORSE_TO_RU[letter]
+            decoded_words += decoded_word
+
+        return decoded_words
+
+
+    def get_vowels(self, lang):
+        vowels_lst = []
+        match lang:
+            case 'ru':
+                word = self.ru_decode()
+                for letter in word:
+                    if letter in self.RUS_VOWELS_LIST:
+                        vowels_lst.append(letter)
+            case 'eng':
+                word = self.eng_decode()
+                for letter in word:
+                    if letter in self.ENG_VOWELS_LIST:
+                        vowels_lst.append(letter)
+        return vowels_lst
+
+    def get_consonants(self, lang):
+        consonants_lst = []
+        match lang:
+            case 'ru':
+                word = self.ru_decode()
+                for letter in word:
+                    if letter in self.RUS_CONSONANTS_LIST:
+                        consonants_lst.append(letter)
+            case 'eng':
+                word = self.eng_decode()
+                for letter in word:
+                    if letter in self.ENG_CONSONANTS_LIST:
+                        consonants_lst.append(letter)
+        return consonants_lst
+
+
+
+    def __str__(self):
+        '''
+        Возвращает строковое представление объекта с автоматическим определением языка.
+        Определяет язык по первому декодированному слову.
+        '''
+        return self.encoded_msg
+
+    def __repr__(self):
+        '''
+        Возвращает представление объекта для отладки.
+        '''
+        return self.encoded_msg
