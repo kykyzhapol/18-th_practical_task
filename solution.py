@@ -262,3 +262,27 @@ class MorseMsg:
         Возвращает представление объекта для отладки.
         '''
         return self.encoded_msg
+
+
+class StrandsDNA:
+    def __init__(self):
+        self.all_strands = []
+
+
+    def add_strands(self, strands):
+        self.all_strands += strands.split()
+        self.all_strands = list(set(self.all_strands))
+        self.all_strands.sort(key=lambda x: x)
+
+
+    def __str__(self):
+        return str(' '.join(self.all_strands))
+
+
+    def get_max_strands(self):
+        max_len = max([len(x) for x in self.all_strands])
+        max_len_chain = []
+        for chain in self.all_strands:
+            if len(chain) == max_len:
+                max_len_chain.append(chain)
+        return str(' '.join(max_len_chain))
