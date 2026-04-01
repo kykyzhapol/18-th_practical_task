@@ -1,21 +1,44 @@
-'''
-В заданной строке найти количество символов  в верхнем регистре начиная
-с символа с номером i до символа с номером j включительно. Использовать функцию filter().
-Нумерацию символов строки считать с 1.
-'''
+"""
+Count uppercase letters in a substring.
 
-def find_let(in_let: str):
-    if in_let == in_let.upper():
-        return True
-    return False
+The program reads a string and two indices (1‑based) i and j,
+then prints the number of uppercase characters in the substring
+from i to j inclusive, using filter().
+"""
 
 
-def main():
-    in_str = input('Enter string -->')
-    i = int(input('Enter bottom:'))
-    j = int(input('Enter up:'))
-    capit = list(filter(find_let, in_str[i:j+1]))
-    print(len(capit))
+def is_uppercase(char: str) -> bool:
+    """
+    Check if a single character is uppercase.
+
+    Args:
+        char: A string containing exactly one character.
+
+    Returns:
+        True if the character is an uppercase letter, False otherwise.
+    """
+    return char.isupper()
+
+
+def main() -> None:
+    """
+    Main function: read input, count uppercase letters in the substring,
+    and print the result.
+    """
+    # Read the string
+    in_str = input('Enter string --> ')
+    # Read 1‑based indices
+    i = int(input('Enter bottom: '))
+    j = int(input('Enter up: '))
+
+    # Extract substring (convert to 0‑based indices)
+    substring = in_str[i - 1:j]   # j is inclusive, so slice end is j (exclusive)
+
+    # Use filter to keep only uppercase characters
+    uppercase_chars = list(filter(is_uppercase, substring))
+
+    # Output the count
+    print(len(uppercase_chars))
 
 
 if __name__ == '__main__':
